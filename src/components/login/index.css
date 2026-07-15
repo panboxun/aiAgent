@@ -1,0 +1,118 @@
+/* 重置样式 */
+:deep(*) {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:deep(html), :deep(body) {
+  height: 100vh;
+  overflow: hidden; /* 保持整体无上下滚动 */
+}
+:deep(.el-form-item){
+    margin-bottom: 20px;
+    
+}
+:deep(.el-button){
+    width: 100%;
+}
+:deep(.el-input__inner){
+    padding-left: 10px;
+}
+:deep(.el-checkbox__input){
+    margin-right: 5px;
+}
+/* 布局容器 */
+.layout-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* 左侧侧边栏 - 新增内容折行样式 */
+.sidebar {
+  width: 50%;
+  flex-shrink: 0;
+  background-color: #558d7e;
+  
+  position: relative;
+  height: 100%;
+  /* 核心：内容超出折行 */
+  word-wrap: break-word;    /* 长单词换行 */
+  word-break: break-all;    /* 单词内换行（可选，根据需求） */
+  white-space: normal;      /* 允许换行 */
+  overflow-y: auto;         /* 侧边栏内容过多时，仅侧边栏出现垂直滚动条 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 16px;
+  
+}
+
+.siderbarContent{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 30px;
+}
+.siderbarTitle{
+    font-size: 30px;
+   
+}
+.siderbarDescribe{
+
+}
+.siderbarIcon{
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    border: 2px solid #fff;
+}
+/* 右侧内容区 - 新增内容折行样式 */
+.content {
+  flex: 1;
+  background-color: #ffffff;
+  min-width: 50%;
+  height: 100%;
+  /* 核心：内容超出折行 */
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: normal;
+  padding: 20px;            /* 增加内边距，优化内容显示 */
+  overflow-y: auto;         /* 内容过多时，仅内容区出现垂直滚动条 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contentBox{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 300px;
+}
+.contentBoxTitle{
+    font-size: 30px;
+    color: #161616;
+}
+
+.contentBoxDescribe{
+    font-size: 16px;
+    color: #b9bbb9;
+    
+}
+
+
+/* 响应式断点 */
+@media (max-width: 799px) {
+  .sidebar {
+    display: none;
+  }
+  .content {
+    min-width: unset;
+  }
+}
