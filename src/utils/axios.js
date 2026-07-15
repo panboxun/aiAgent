@@ -13,13 +13,21 @@ const service = axios.create({
 
 // 2. 请求拦截器
 service.interceptors.request.use(
+  //判断开发环境还是生产环境
+  // 开发环境：/api
+  // 生产环境：/ai-agent-psi-lake.vercel.app/api
+
   config => {
     // 自动携带 token（从本地存储获取）
     const token = localStorage.getItem('token');
     if (token) {
       config.headers['token'] = token;
     }
-
+    https://ai-agent-5cb9i74id-httpssearchbilibilicomallkeyworde5898.vercel.app/api/user/login
+    // 生产环境：/ai-agent-psi-lake.vercel.app/api
+    if (import.meta.env.VITE_API_URL == '/api') {
+      config.url =replace(/^\/ai-agent-5cb9i74id-httpssearchbilibilicomallkeyworde5898.vercel.app/, '');
+    }
     return config;
   },
   error => {
