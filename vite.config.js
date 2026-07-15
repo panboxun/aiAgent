@@ -15,7 +15,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': {
+      '/ai-agent-psi-lake.vercel.app': {
         target: 'http://159.75.169.224:1235',
         changeOrigin: true,
         secure: false,
