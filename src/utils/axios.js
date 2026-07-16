@@ -23,10 +23,12 @@ service.interceptors.request.use(
     if (token) {
       config.headers['token'] = token;
     }
-    https://ai-agent-5cb9i74id-httpssearchbilibilicomallkeyworde5898.vercel.app/api/user/login
     // 生产环境：/ai-agent-psi-lake.vercel.app/api
     if (import.meta.env.VITE_API_URL == '/api') {
-      config.url =replace(/^\/ai-agent-5cb9i74id-httpssearchbilibilicomallkeyworde5898.vercel.app/, '');
+      // 将第一个ai后，最后一个app前的字符串替换为空
+      // 例如：/ai-agent-psi-lake.vercel.app/api/user/login -> /user/login
+      // config.url = config.url.replace(/^\/ai-agent-5cb9i74id-httpssearchbilibilicomallkeyworde5898.vercel.app/, '');
+
     }
     return config;
   },

@@ -117,7 +117,7 @@ const submitForm = async (formRef) => {
                     username: dynamicValidateForm.accout,
                     password: dynamicValidateForm.password
                 });
-                console.log(res);
+                
                 // 存储 token
                 if (res && res.data.token) {
                     localStorage.setItem('token', res.data.token);
@@ -136,7 +136,7 @@ const submitForm = async (formRef) => {
                     
                     // 跳转到首页
                     router.push("/index/dashboard");
-                    window.location.href("/index/dashboard");
+                    
                 }
             } catch (error) {
                 // ElMessage.error(error.msg || '登录失败，请重试');
