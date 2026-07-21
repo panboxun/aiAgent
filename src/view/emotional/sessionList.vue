@@ -39,7 +39,8 @@ import { getSessionList, deleteSession,getSessionMessages } from '@/api/ai';
 import emitter from '@/utils/mitt';
 import { Delete, ChatDotRound } from '@element-plus/icons-vue';
 import { ElMessageBox } from 'element-plus';
-
+import { inject } from 'vue'
+const $loading = inject('loading')
 
 
 const sessionList = ref([])
@@ -69,6 +70,7 @@ const formatTime = (time) => {
 
 // 获取会话列表
 const getSessionPage = async() =>{
+   
     let res  = await getSessionList({
        pageNum: 1,
        pageSize: 10,
@@ -76,6 +78,7 @@ const getSessionPage = async() =>{
     if(res.code == 200){
         sessionList.value = res.data.records
     }
+   
 }
 
 // 监听更新会话列表事件
@@ -83,23 +86,28 @@ const handleUpdateSessionList = (newList) => {
     sessionList.value = newList
 }
 // 点击会话
-const handleClick = (session) => {
+const handleClick = async(session) => {
+  
   // 获取会话消息
-  getSessionMessages(session.id).then(res => {
-    if(res.code == 200){
+  let res = await getSessionMessages(session.id)
+  if(res.code == 200){
       
-      //更新当前会话对象数据
-      const sessionData ={
-        sessionId: 'session_' + session.id,
-        status: "ACTIVE",
-        sessionTitle: session.sessionTitle , 
-      }
-      // 触发点击事件，将会话传递给父组件
-      emitter.emit('getSessionMessages', res.data)
-      // 触发点击事件，将会话传递给父组件
-      emitter.emit('updateSession', sessionData)
+    //更新当前会话对象数据
+    const sessionData ={
+      sessionId: 'session_' + session.id,
+      status: "ACTIVE",
+      sessionTitle: session.sessionTitle , 
     }
-  })
+    
+    // 触发点击事件，将会话传递给父组件
+    emitter.emit('getSessionMessages', res.data)
+    // 触发点击事件，将会话传递给父组件
+    emitter.emit('updateSession', sessionData)
+
+
+    
+  }
+  
 }
 onMounted(() => {
     getSessionPage()

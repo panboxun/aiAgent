@@ -30,6 +30,7 @@ const routes = [
       {
         path:"knowledge",
         component: () => import('@/view/knowledge.vue'), 
+        keepAlive: true,
         meta:{
           title:"知识文章",
           icon:"Star"

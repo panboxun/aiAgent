@@ -1,7 +1,7 @@
 ﻿import axios from 'axios';
 import { ElMessage } from 'element-plus';
 import router from '@/router';
-
+import { $loading } from '@/plugins/globalLoading/globalLoading.js'
 // 1. 创建 axios 实例
 const service = axios.create({
   baseURL: import.meta.env.VITE_API_URL || '/api', // 接口基础地址（vite环境）
@@ -18,7 +18,9 @@ service.interceptors.request.use(
   // 生产环境：/ai-agent-psi-lake.vercel.app/api
 
   config => {
+    
     // 自动携带 token（从本地存储获取）
+    $loading.show('请求接口中...')
     const token = localStorage.getItem('token');
     if (token) {
       config.headers['token'] = token;
@@ -34,6 +36,7 @@ service.interceptors.request.use(
   },
   error => {
     console.error('请求错误：', error);
+    $loading.close()
     return Promise.reject(error);
   }
 );
@@ -45,6 +48,7 @@ service.interceptors.response.use(
     const res = response.data;
     // 后端自定义成功码（例如 200 / 0 / 'success'）
     if (res.code == 200) {
+      $loading.close()
       return res;
     }else{
       ElMessage.error(res.msg || '请求失败');

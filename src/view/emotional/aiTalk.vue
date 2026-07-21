@@ -77,7 +77,6 @@ import { startChat,getSessionList } from '@/api/ai';
 import { ElMessage } from 'element-plus';
 import emitter from '@/utils/mitt';
 import { fetchEventSource } from '@microsoft/fetch-event-source'
-import { logout } from '../../api/user';
 // 定义对话消息
 const messages = ref([])
 const inputValue = ref('')
