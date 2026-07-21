@@ -58,6 +58,7 @@ service.interceptors.response.use(
   },
   error => {
     console.error('响应异常：', error);
+    $loading.close()
     let errMsg = '网络异常，请稍后重试';
     ElMessage.error(errMsg);
     // HTTP 状态码处理
